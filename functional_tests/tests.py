@@ -62,6 +62,7 @@ class NewVisitorTest(LiveServerTestCase):
         
         self.browser.quit()
         self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(3)      
         
         # Francis visits the home page.  There is no sign of Edith's list
         self.browser.get(self.live_server_url)
@@ -87,7 +88,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Satisfied, she goes back to sleep
 
-        browser.quit()
+        self.browser.quit()
         
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
