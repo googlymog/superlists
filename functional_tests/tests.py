@@ -87,8 +87,6 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Buy milk', page_text)
 
         # Satisfied, she goes back to sleep
-
-        self.browser.quit()
         
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
