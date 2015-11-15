@@ -1,15 +1,16 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
         #self.browser.implicitly_wait(3)        
 
     def tearDown(self):
+        self.browser.refresh()
         self.browser.quit()
     
     def check_for_row_in_list_table(self, row_text):
@@ -54,6 +55,7 @@ class NewVisitorTest(LiveServerTestCase):
         # The page updates again, and now shows both items on her list
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
+        self.browser.refresh()
         self.browser.quit()
         # Now a new user, Francis, comes along to the site.
         
@@ -104,6 +106,7 @@ class NewVisitorTest(LiveServerTestCase):
         # centered there too
         inputbox.send_keys('testing\n')
         inputbox = self.browser.find_element_by_id('id_new_item')
+        self.browser.implicitly_wait(3) 
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
             505,
